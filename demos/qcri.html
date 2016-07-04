@@ -36,6 +36,18 @@
 <script src="../lib/recorder.js"></script>
 <script src="other/jquery-1.10.2.min.js"></script>
 
+<script src="../lib/siriwave.js"></script>
+<script>
+var siriWave = new SiriWave({
+    container: document.getElementById('siri-container'),
+    width: 640,
+    height: 200,
+    speed: 0.2,
+    color: '#000',
+    frequency: 2
+});
+</script>
+
 <script type="text/jsx">
 
 
@@ -44,8 +56,8 @@ function __serverStatus(msg) {
 }
 
 var dictate = new Dictate({
-	server : "ws://qcri-asr-ol.cloudapp.net:8888/client/ws/speech",
-	serverStatus : "ws://qcri-asr-ol.cloudapp.net:8888/client/ws/status",
+	server : "ws://qcri-alt-asr-ar.cloudapp.net:8888/client/ws/speech",
+	serverStatus : "ws://qcri-alt-asr-ar.cloudapp.net:8888/client/ws/status",
 	recorderWorkerPath : '../lib/recorderWorker.js',
 	onReadyForSpeech : function() {
 		__message("READY FOR SPEECH");
@@ -122,6 +134,7 @@ var Mic = React.createClass({
 			return (
 				<div className="microphone-container">
 				  <p> <i className="fa fa-times-circle-o microphone-icon" onClick={this.handleClick}> </i> </p>
+          <div id="siri-container"></div>
 					<p>
 					 Please speak to microphone now, click to stop recording at any time.
 					</p>
@@ -257,7 +270,7 @@ var Page = React.createClass({
 		return (
 		  <div>
 		  {micDiv}
-		  {transDiv}
+      <RecognizedText/>
 		  </div>
 		);
 	}
